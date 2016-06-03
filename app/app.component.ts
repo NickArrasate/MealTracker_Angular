@@ -27,7 +27,6 @@ import { EditMealComponent} from './edit-meal.component'
   [class.selected]='currentMeal === selectedMeal'
   [meal]='currentMeal'
   ></meal-display>
-
   <edit-Meal *ngIf='selectedMeal' [meal]='selectedMeal'></edit-Meal>
   </div>
   </div>
@@ -46,11 +45,9 @@ export class AppComponent{
 
   storeMeals(newMeal: Meal): void{
     this.meals.push(newMeal);
-    console.log(this.meals);
   }
   mealClicked(clickedMeal: Meal): void {
     this.selectedMeal = clickedMeal;
-    console.log(clickedMeal);
     this.onMealSelect.emit(clickedMeal);
   }
   onChange(filterOption){

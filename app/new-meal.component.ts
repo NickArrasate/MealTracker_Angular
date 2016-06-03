@@ -1,7 +1,6 @@
 import {Component, EventEmitter} from 'angular2/core';
 import { Meal } from './meal.model';
 
-
 @Component ({
   selector: 'new-meal-display',
   outputs: ['onNewMeal'],
@@ -18,13 +17,11 @@ import { Meal } from './meal.model';
 
 export class NewMealComponent{
   public onNewMeal: EventEmitter<Meal>;
-
   constructor(){
     this.onNewMeal = new EventEmitter();
   }
   addMeal(nameForm: HTMLInputElement, descForm: HTMLInputElement, calForm: HTMLInputElement){
     var newMeal = new Meal(nameForm.value, descForm.value, calForm.value);
-    console.log(newMeal)
     this.onNewMeal.emit(newMeal);
     nameForm.value = '';
     descForm.value = '';
