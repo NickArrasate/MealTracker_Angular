@@ -1,48 +1,59 @@
 import {Component, EventEmitter} from 'angular2/core';
-import { Joint } from './joint.model';
-import { NewJointComponent} from './new-joint.component';
-import {JointDisplayComponent} from './joint-display.component';
-import { costPipe } from './cost.pipe';
-
+import { Meal } from './meal.model';
+import { NewMealComponent} from './new-meal.component';
+import {MealDisplayComponent} from './meal-display.component';
+import { caloriePipe } from './meal.pipe';
+import { EditMealComponent} from './edit-meal.component'
 @Component ({
   selector: 'my-app',
-  inputs: ['joints'],
-  pipes: [costPipe],
-  directives: [NewJointComponent, JointDisplayComponent],
+  inputs: ['meals'],
+  pipes: [caloriePipe],
+  directives: [NewMealComponent, MealDisplayComponent, EditMealComponent],
   template: `
-  <h1>Buy Food at These Joints</h1>
-  <new-joint-display (onNewJoint)='storeJoints($event)'></new-joint-display>
-  <select (change)='onChange($event.target.value)' class ='filter'>
+  <div class='container'>
+  <h2>Track your meals.</h2>
+  <div class = 'row'>
+  <new-meal-display (onNewMeal)='storeMeals($event)'></new-meal-display>
+  <select (change)='onChange($event.target.value)' class ='col-xs-2 filter'>
   <option value="all">Show All</option>
-  <option value="cheap">Cheap</option>
-  <option value="reasonable">Reasonable</option>
-  <option value="expensive">Expensive</option>
+  <option value='low'>Show Low Calorie Meals
+  <option value = 'high'>Show High Calorie Meals</option>
   </select>
-  <joint-display
-  *ngFor = '#joint of joints | costPipe:filterCost'
-  (click)='jointClicked(currentJoint)'
-  [class.selected]='currentJoint === selectedJoint'
-  [joint]='joint'
-  ></joint-display>
+  </div>
+  <div class = 'row'>
+  <meal-display
+  *ngFor = '#currentMeal of meals | mealPipe: filterMeal'
+  (click)='mealClicked(currentMeal)'
+  [class.selected]='currentMeal === selectedMeal'
+  [meal]='currentMeal'
+  ></meal-display>
 
+  <edit-Meal *ngIf='selectedMeal' [meal]='selectedMeal'></edit-Meal>
+  </div>
+  </div>
   `
 })
 
 export class AppComponent{
-  public joints = [];
-  public filterCost: string = 'all';
-  public selectedJoint: Joint;
-  public onJointSelect: EventEmitter<Joint>;
-  constructor(){};
-  storeJoints(newJoint: Joint): void{
-    this.joints.push(newJoint);
-    console.log(this.joints);
+  public meals = [];
+  public filterMeal: string = 'all';
+  public selectedMeal: Meal;
+  public onMealSelect: EventEmitter<Meal>;
+
+  constructor(){
+    this.onMealSelect = new EventEmitter();
+  };
+
+  storeMeals(newMeal: Meal): void{
+    this.meals.push(newMeal);
+    console.log(this.meals);
   }
-  jointClicked(clickedJoint: Joint): void {
-    this.selectedJoint = clickedJoint;
-    this.onJointSelect.emit(clickedJoint);
+  mealClicked(clickedMeal: Meal): void {
+    this.selectedMeal = clickedMeal;
+    console.log(clickedMeal);
+    this.onMealSelect.emit(clickedMeal);
   }
   onChange(filterOption){
-    this.filterCost = filterOption;
+    this.filterMeal = filterOption;
   }
 }
