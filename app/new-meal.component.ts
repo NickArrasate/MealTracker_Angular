@@ -18,13 +18,13 @@ import { Meal } from './meal.model';
 export class NewMealComponent{
   public onNewMeal: EventEmitter<Meal>;
   constructor(){
-    this.onNewMeal = new EventEmitter();
+  this.onNewMeal = new EventEmitter();
   }
   addMeal(nameForm: HTMLInputElement, descForm: HTMLInputElement, calForm: HTMLInputElement){
-    var newMeal = new Meal(nameForm.value, descForm.value, calForm.value);
-    this.onNewMeal.emit(newMeal);
-    nameForm.value = '';
-    descForm.value = '';
-    calForm.value = '';
+  var newMeal = new Meal(nameForm.value, descForm.value, calForm.value);
+  this.onNewMeal.emit(newMeal);
+  nameForm.value = '';
+  descForm.value = '';
+  calForm.value = '';
   }
 }

@@ -14,11 +14,11 @@ import { EditMealComponent} from './edit-meal.component'
   <h2>Track your meals.</h2>
   <div class = 'row'>
   <new-meal-display (onNewMeal)='storeMeals($event)'></new-meal-display>
-  <select (change)='onChange($event.target.value)' class ='col-xs-2 filter'>
-  <option value="all">Show All</option>
-  <option value='low'>Show Low Calorie Meals
-  <option value = 'high'>Show High Calorie Meals</option>
-  </select>
+    <select (change)='onChange($event.target.value)' class ='col-xs-2 filter'>
+      <option value="all">Show All</option>
+      <option value='low'>Show Low Calorie Meals
+      <option value = 'high'>Show High Calorie Meals</option>
+    </select>
   </div>
   <div class = 'row'>
   <meal-display
